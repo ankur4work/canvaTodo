@@ -20,7 +20,14 @@ WORKDIR /app
 # package.json must resolve for `npm ci` to succeed.
 COPY . .
 
-RUN npm ci --ignore-scripts && npm run build:backend
+# `--ignore-scripts` keeps the build deterministic and stops the repo's own
+# postinstall from writing a .env into the builder. esbuild is then rebuilt
+# explicitly, because npm's allow-scripts gating would otherwise leave its
+# platform binary unlinked and `npm run build:backend` fails with
+# "sh: esbuild: not found".
+RUN npm ci --ignore-scripts \
+ && npm rebuild esbuild \
+ && npm run build:backend
 
 # ---- runtime ----
 FROM node:22-alpine AS runtime
