@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "canva-dev": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@canva/cli",
+        "mcp"
+      ],
+      "env": {}
+    }
+  }
+}

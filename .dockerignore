@@ -1,0 +1,31 @@
+# Never let secrets into the build context. Both are gitignored too, but a
+# Docker build context is a second, easily-forgotten way for them to leak into
+# an image layer.
+.env
+.coolify.env
+
+node_modules
+dist
+dist-server
+
+.git
+.github
+.vscode
+.cursor
+.claude
+
+# NOT excluded: examples/. It looks like dead weight, but package.json declares
+# `workspaces: ["./examples/*/*"]` and package-lock.json has entries for all 60
+# of them, so `npm ci` fails outright if those directories are missing. It is
+# 1.4MB and never leaves the builder stage.
+#
+# templates/ and reference_apps/ are not workspaces, so they can go.
+templates
+reference_apps
+
+docs
+*.md
+
+coverage
+*.log
+.DS_Store

@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.coolify.env
+.idea
+.ssl
+*.log*
+**/*/db.json
+dist
+dist-server
+node_modules
+
+# Brand kit storage — user data, never commit it
+data/
+*.tmp
