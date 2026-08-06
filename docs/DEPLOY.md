@@ -145,6 +145,17 @@ server. Generate an image in Canva and confirm it inserts.
 - **`npm ci` and workspaces.** `package.json` declares
   `workspaces: ["./examples/*/*"]`, so `examples/` must stay in the Docker build
   context or the build fails. `.dockerignore` documents this.
+- **Coolify injects your env vars into the build as `ARG`s.** That includes
+  `NODE_ENV=production`, which makes `npm ci` drop devDependencies — where
+  esbuild lives. The failure surfaces as `sh: esbuild: not found` with nothing
+  pointing at the real cause. The builder stage passes `--include=dev` to be
+  immune to it. Don't remove that flag.
+- **Your OpenAI key is passed as a build `ARG`.** Docker warns
+  `SecretsUsedInArgOrEnv` on every build, and it is a fair warning: ARG values
+  can persist in image layer history. The image is local to your own server and
+  never pushed to a registry, so the exposure is limited — but if you want it
+  gone, untick **Build Variable?** on `OPENAI_API_KEY` in Coolify. The backend
+  only reads it at runtime, so nothing breaks.
 - **The free-tier counter is in-memory** and resets on every deploy. Fine on one
   instance; move it to Redis before running two.
 - **The brand kit store is a single JSON file.** Two containers behind a load
