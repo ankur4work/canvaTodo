@@ -189,7 +189,27 @@ function buildDevConfig(options?: DevConfig): {
 
   const { port, enableHmr, appOrigin, enableHttps, certFile, keyFile } =
     options;
-  const host = "localhost";
+
+  /**
+   * Bind dual-stack rather than to the name "localhost".
+   *
+   * Node resolves "localhost" to `::1` first, so webpack-dev-server ends up
+   * listening on IPv6 loopback only. Chrome resolves "localhost" to
+   * `127.0.0.1`, finds nothing listening, and Canva reports that it can't load
+   * the app's JavaScript bundle — with nothing in the dev server log, because
+   * the connection never arrives. `curl localhost` succeeds throughout, which
+   * makes it look like a browser problem rather than a binding one.
+   *
+   * Listening on `::` accepts IPv4-mapped connections too, so both
+   * `127.0.0.1:8080` and `[::1]:8080` work.
+   */
+  const host = "::";
+
+  /**
+   * Host *header* values that are allowed, which is a separate concern from
+   * the bind address above — `::` is not a name a browser would ever send.
+   */
+  const allowedHostNames = ["localhost", "127.0.0.1"];
 
   let devServer: DevServerConfiguration = {
     server: enableHttps
@@ -202,7 +222,7 @@ function buildDevConfig(options?: DevConfig): {
         }
       : "http",
     host,
-    allowedHosts: [host],
+    allowedHosts: allowedHostNames,
     historyApiFallback: {
       rewrites: [{ from: /^\/$/, to: "/app.js" }],
     },
@@ -219,7 +239,7 @@ function buildDevConfig(options?: DevConfig): {
   if (enableHmr && appOrigin) {
     devServer = {
       ...devServer,
-      allowedHosts: [host, new URL(appOrigin).hostname],
+      allowedHosts: [...allowedHostNames, new URL(appOrigin).hostname],
       headers: {
         "Access-Control-Allow-Origin": appOrigin,
         "Access-Control-Allow-Credentials": "true",
