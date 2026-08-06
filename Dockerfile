@@ -20,12 +20,20 @@ WORKDIR /app
 # package.json must resolve for `npm ci` to succeed.
 COPY . .
 
-# `--ignore-scripts` keeps the build deterministic and stops the repo's own
-# postinstall from writing a .env into the builder. esbuild is then rebuilt
-# explicitly, because npm's allow-scripts gating would otherwise leave its
-# platform binary unlinked and `npm run build:backend` fails with
-# "sh: esbuild: not found".
-RUN npm ci --ignore-scripts \
+# `--include=dev` is load-bearing, not decoration.
+#
+# Coolify injects every application environment variable into the build as an
+# ARG, and this app sets NODE_ENV=production for the runtime. npm honours that
+# during the build too and silently omits devDependencies — which is where
+# esbuild lives, so the bundle step fails with "sh: esbuild: not found" and no
+# indication of why. Forcing dev dependencies on makes the builder stage
+# independent of whatever the deployment platform puts in the environment.
+#
+# `--ignore-scripts` keeps the install deterministic and stops the repo's own
+# postinstall from writing a .env into the builder. esbuild is rebuilt
+# afterwards because npm's allow-scripts gating leaves its platform binary
+# unlinked otherwise.
+RUN npm ci --include=dev --ignore-scripts \
  && npm rebuild esbuild \
  && npm run build:backend
 
