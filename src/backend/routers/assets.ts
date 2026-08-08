@@ -28,6 +28,24 @@ export function createAssetRouter(): express.Router {
       return;
     }
 
+    /**
+     * Open CORS, deliberately, and different from every other route here.
+     *
+     * `@canva/asset`'s type declarations require that a `thumbnailUrl` "must
+     * support Cross-Origin Resource Sharing", and Canva renders that thumbnail
+     * inside its own editor UI while the upload is queued — not inside the app
+     * iframe. The global `cors()` config allows only the app origin, so the
+     * browser fetched the image, then discarded it, and `upload()` failed. The
+     * server log showed a clean 200, which made it look like the asset path
+     * was working.
+     *
+     * `*` gives away nothing: the endpoint is already unauthenticated, and the
+     * only thing protecting an asset is the unguessable id in the URL. CORS
+     * never protected it and was never meant to.
+     */
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+
     res.setHeader("Content-Type", asset.mimeType);
     res.setHeader("Content-Length", String(asset.body.byteLength));
     // Immutable content behind an unguessable id, so it is safe to cache — but
