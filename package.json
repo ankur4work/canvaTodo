@@ -1,6 +1,6 @@
 {
-  "name": "canva-apps-sdk-starter-kit",
-  "description": "A boilerplate for creating Canva Apps.",
+  "name": "brandpaint",
+  "description": "Brandpaint — generate images constrained to a saved brand palette and art direction, inside Canva.",
   "engines": {
     "node": "^22 || ^24"
   },
