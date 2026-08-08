@@ -39,6 +39,17 @@ host before submitting. Canva's requirements for external asset URLs are HTTPS,
 publicly reachable, correct `Content-Type`, no redirects, no IP addresses,
 ≤50MB; `public_url.ts` enforces the host-shaped ones.
 
+### Scopes
+
+The app must have **`canva:asset:private:write`** enabled in the Developer
+Portal under **Scopes**. Without it `upload()` fails and generated images cannot
+be inserted — generation itself still succeeds, so the app looks like it works
+right up until the moment a user clicks a result. The Dev Toolkit reports it as
+`missing_scopes`.
+
+Scopes are portal configuration, not code, so they do not travel with the repo
+or the bundle. Re-check them if you ever create a second app entry.
+
 ### Prove the differentiator
 
 Reviewers check for copycat functionality, and Canva ships Magic Media. The
