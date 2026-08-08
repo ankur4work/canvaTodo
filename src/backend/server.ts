@@ -4,6 +4,7 @@ import "dotenv/config";
 import express from "express";
 import { createBaseServer } from "../../utils/backend/base_backend/create";
 import { premiumDevOverrideEnabled } from "./premium_guard";
+import { requestLog } from "./request_log";
 import { createAssetRouter } from "./routers/assets";
 import { createBrandKitRouter } from "./routers/brand_kits";
 import { createGenerateRouter } from "./routers/generate";
@@ -25,6 +26,10 @@ async function main() {
   }
 
   const router = express.Router();
+
+  // First, so it captures everything — including unauthenticated asset fetches
+  // from Canva and requests that CORS or token verification later rejects.
+  router.use(requestLog());
 
   /**
    * Only this app's own origin may call the backend.
