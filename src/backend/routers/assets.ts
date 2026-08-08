@@ -18,16 +18,6 @@ export function createAssetRouter(): express.Router {
   const router = express.Router();
 
   router.get("/api/assets/:id", (req, res) => {
-    const asset = getAsset(req.params.id);
-
-    if (!asset) {
-      res.status(404).json({
-        error: "not_found",
-        message: "That image has expired.",
-      });
-      return;
-    }
-
     /**
      * Open CORS, deliberately, and different from every other route here.
      *
@@ -42,9 +32,21 @@ export function createAssetRouter(): express.Router {
      * `*` gives away nothing: the endpoint is already unauthenticated, and the
      * only thing protecting an asset is the unguessable id in the URL. CORS
      * never protected it and was never meant to.
+     *
+     * Set before the lookup so a cross-origin caller can read the 404 too.
      */
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+
+    const asset = getAsset(req.params.id);
+
+    if (!asset) {
+      res.status(404).json({
+        error: "not_found",
+        message: "That image has expired.",
+      });
+      return;
+    }
 
     res.setHeader("Content-Type", asset.mimeType);
     res.setHeader("Content-Length", String(asset.body.byteLength));
