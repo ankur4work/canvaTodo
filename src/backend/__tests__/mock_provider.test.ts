@@ -91,7 +91,7 @@ describe("mockProvider", () => {
         ...premiumOptions,
         count: 1,
         brandPalette: ["#123456", "#abcdef"],
-        brandDirective: "Use strictly this colour palette: #123456, #abcdef.",
+        brandDirective: "Use strictly this color palette: #123456, #abcdef.",
       }),
     );
 

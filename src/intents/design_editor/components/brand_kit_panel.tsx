@@ -13,11 +13,11 @@ import { useIntl } from "react-intl";
 import type { BrandKitsState } from "../../../brand/use_brand_kits";
 import {
   MAX_KIT_NAME_LENGTH,
-  MAX_PALETTE_COLOURS,
+  MAX_PALETTE_COLORS,
   MAX_STYLE_NOTES_LENGTH,
 } from "../../../shared/brand_kit";
 
-const DEFAULT_COLOUR = "#4A56E2";
+const DEFAULT_COLOR = "#4A56E2";
 
 type Props = {
   brandKits: BrandKitsState;
@@ -33,13 +33,13 @@ export const BrandKitPanel = ({ brandKits }: Props) => {
 
   const [isCreating, setIsCreating] = useState(false);
   const [name, setName] = useState("");
-  const [palette, setPalette] = useState<string[]>([DEFAULT_COLOUR]);
+  const [palette, setPalette] = useState<string[]>([DEFAULT_COLOR]);
   const [styleNotes, setStyleNotes] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   const resetForm = () => {
     setName("");
-    setPalette([DEFAULT_COLOUR]);
+    setPalette([DEFAULT_COLOR]);
     setStyleNotes("");
     setIsCreating(false);
   };
@@ -93,20 +93,20 @@ export const BrandKitPanel = ({ brandKits }: Props) => {
         <FormField
           label={intl.formatMessage({
             defaultMessage: "Palette",
-            description: "Label for the brand kit colour palette editor.",
+            description: "Label for the brand kit color palette editor.",
           })}
           description={intl.formatMessage({
             defaultMessage:
-              "Generations are constrained to these colours. The first is treated as primary.",
+              "Generations are constrained to these colors. The first is treated as primary.",
             description:
               "Explains how the saved palette is applied to generated images.",
           })}
           control={() => (
             <Box display="flex" flexDirection="row" alignItems="center">
-              {palette.map((colour, index) => (
+              {palette.map((color, index) => (
                 <ColorSelector
-                  key={`${colour}-${index}`}
-                  color={colour}
+                  key={`${color}-${index}`}
+                  color={color}
                   onChange={(next) =>
                     setPalette((current) =>
                       current.map((entry, position) =>
@@ -124,9 +124,9 @@ export const BrandKitPanel = ({ brandKits }: Props) => {
                   }
                 />
               ))}
-              {palette.length < MAX_PALETTE_COLOURS && (
+              {palette.length < MAX_PALETTE_COLORS && (
                 <ColorSelector
-                  color={DEFAULT_COLOUR}
+                  color={DEFAULT_COLOR}
                   triggerMode="addColorButton"
                   onChange={(next) =>
                     setPalette((current) => [...current, next])

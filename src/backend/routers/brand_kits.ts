@@ -3,7 +3,7 @@ import type { Request } from "express";
 import "@canva/app-middleware/express";
 import type { BrandKitDraft } from "../../shared/brand_kit";
 import {
-  MAX_PALETTE_COLOURS,
+  MAX_PALETTE_COLORS,
   validateBrandKit,
 } from "../../shared/brand_kit";
 import { getBrandKitStore } from "../brand_kit_store";
@@ -23,7 +23,7 @@ function readDraft(body: unknown): BrandKitDraft | undefined {
   if (typeof name !== "string") {
     return undefined;
   }
-  if (!Array.isArray(palette) || palette.length > MAX_PALETTE_COLOURS) {
+  if (!Array.isArray(palette) || palette.length > MAX_PALETTE_COLORS) {
     return undefined;
   }
   if (!palette.every((entry): entry is string => typeof entry === "string")) {

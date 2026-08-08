@@ -35,7 +35,7 @@ Canva's written-content rules that shape the wording below:
   So the short description has none and the description, being four sentences,
   has one on each.
 - Short description and description must describe the same purpose. Both use
-  the phrase "brand colours" rather than alternating with "palette".
+  the phrase "brand colors" rather than alternating with "palette".
 
 ## App name
 
@@ -48,13 +48,13 @@ Brandpaint
 No trailing full stop — deliberate, per the rule above.
 
 ```
-Generate images in your saved brand colours
+Generate images in your saved brand colors
 ```
 
 ## Description
 
 ```
-Save your brand colours and art direction once. Every image you generate stays within them. Click a result to add it to your design. Save a kit for each brand you work with.
+Save your brand colors and art direction once. Every image you generate stays within them. Click a result to add it to your design. Save a kit for each brand you work with.
 ```
 
 ---
@@ -66,18 +66,18 @@ assess it as duplicating existing Canva functionality. Say this explicitly:
 
 ```
 Brandpaint's purpose is that generated images match a saved brand palette.
-Please create a brand kit before generating, or the distinguishing behaviour
+Please create a brand kit before generating, or the distinguishing behavior
 won't be visible.
 
 1. Open the app in any design.
 2. Click "New brand kit".
-3. Name it "Test", then set two strongly contrasting colours — for example
+3. Name it "Test", then set two strongly contrasting colors — for example
    #FF1493 (pink) and #32CD32 (green). Leave art direction empty.
 4. Click "Save brand kit". It is selected automatically.
-5. Enter a prompt with no colour in it, such as: a coffee cup on a desk
+5. Enter a prompt with no color in it, such as: a coffee cup on a desk
 6. Click "Generate" and wait — generation takes roughly 15-30 seconds.
-7. The result will be rendered in the saved palette rather than the colours
-   the prompt would normally produce. This is the app's core behaviour.
+7. The result will be rendered in the saved palette rather than the colors
+   the prompt would normally produce. This is the app's core behavior.
 8. Click the image to insert it into the design.
 
 To compare, select "No brand kit" and generate the same prompt again. The

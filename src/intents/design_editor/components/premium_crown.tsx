@@ -11,7 +11,7 @@ type Props = {
 /**
  * Canva's premium indicator.
  *
- * Gold for users who would need to upgrade, grey for users already on a plan
+ * Gold for users who would need to upgrade, gray for users already on a plan
  * that covers it — that pairing is specified in Canva's premium app design
  * guidelines, and reviewers look for it.
  *

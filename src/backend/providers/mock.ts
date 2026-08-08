@@ -72,9 +72,9 @@ function renderSvg(options: GenerateOptions, variation: number): string {
   const seed = hash(`${prompt}:${style ?? ""}:${variation}`);
   const gradientId = `g${seed.toString(36)}`;
 
-  // When a brand kit is applied, draw with its actual colours. That makes
+  // When a brand kit is applied, draw with its actual colors. That makes
   // brand-locking verifiable end to end without an API key: change the
-  // palette, regenerate, see different colours.
+  // palette, regenerate, see different colors.
   const [brandStart, brandEnd] = (() => {
     const primary = brandPalette?.[0];
     if (primary === undefined) {
@@ -85,8 +85,8 @@ function renderSvg(options: GenerateOptions, variation: number): string {
     return [primary, secondary] as const;
   })();
 
-  const startColour = brandStart ?? `hsl(${hueFrom(seed, 0)} 72% 52%)`;
-  const endColour = brandEnd ?? `hsl(${hueFrom(seed, 140)} 68% 42%)`;
+  const startColor = brandStart ?? `hsl(${hueFrom(seed, 0)} 72% 52%)`;
+  const endColor = brandEnd ?? `hsl(${hueFrom(seed, 140)} 68% 42%)`;
 
   const lines = wrap(prompt, 26, 3);
   const fontSize = Math.round(width / 22);
@@ -121,8 +121,8 @@ function renderSvg(options: GenerateOptions, variation: number): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <defs>
     <linearGradient id="${gradientId}" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="${escapeXml(startColour)}"/>
-      <stop offset="100%" stop-color="${escapeXml(endColour)}"/>
+      <stop offset="0%" stop-color="${escapeXml(startColor)}"/>
+      <stop offset="100%" stop-color="${escapeXml(endColor)}"/>
     </linearGradient>
   </defs>
   <rect width="${width}" height="${height}" fill="url(#${gradientId})"/>

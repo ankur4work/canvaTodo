@@ -6,7 +6,7 @@
 export type BrandKit = {
   id: string;
   name: string;
-  /** Hex colours, e.g. "#1A73E8". First entry is treated as the primary. */
+  /** Hex colors, e.g. "#1A73E8". First entry is treated as the primary. */
   palette: string[];
   /** Free-text direction, e.g. "warm, editorial, lots of negative space". */
   styleNotes: string;
@@ -24,14 +24,14 @@ export type BrandKitDraft = Omit<BrandKit, "id">;
  */
 export const BRAND_KIT_LIMIT = 3;
 
-export const MAX_PALETTE_COLOURS = 6;
+export const MAX_PALETTE_COLORS = 6;
 export const MAX_KIT_NAME_LENGTH = 40;
 export const MAX_STYLE_NOTES_LENGTH = 200;
 
-const HEX_COLOUR = /^#[0-9a-fA-F]{6}$/;
+const HEX_COLOR = /^#[0-9a-fA-F]{6}$/;
 
-export function isValidHexColour(value: string): boolean {
-  return HEX_COLOUR.test(value);
+export function isValidHexColor(value: string): boolean {
+  return HEX_COLOR.test(value);
 }
 
 export type BrandKitValidationError =
@@ -39,7 +39,7 @@ export type BrandKitValidationError =
   | "name_too_long"
   | "palette_required"
   | "palette_too_large"
-  | "palette_invalid_colour"
+  | "palette_invalid_color"
   | "style_notes_too_long";
 
 /** Shared so the frontend can pre-validate and the backend can enforce. */
@@ -57,11 +57,11 @@ export function validateBrandKit(
   if (draft.palette.length === 0) {
     return "palette_required";
   }
-  if (draft.palette.length > MAX_PALETTE_COLOURS) {
+  if (draft.palette.length > MAX_PALETTE_COLORS) {
     return "palette_too_large";
   }
-  if (!draft.palette.every(isValidHexColour)) {
-    return "palette_invalid_colour";
+  if (!draft.palette.every(isValidHexColor)) {
+    return "palette_invalid_color";
   }
   if (draft.styleNotes.length > MAX_STYLE_NOTES_LENGTH) {
     return "style_notes_too_long";
@@ -79,8 +79,8 @@ export function validateBrandKit(
  */
 export function brandDirective(kit: BrandKit): string {
   const parts = [
-    `Use strictly this colour palette: ${kit.palette.join(", ")}.`,
-    "Do not introduce colours outside this palette.",
+    `Use strictly this color palette: ${kit.palette.join(", ")}.`,
+    "Do not introduce colors outside this palette.",
   ];
 
   const notes = kit.styleNotes.trim();
