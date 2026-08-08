@@ -169,6 +169,12 @@ export const App = () => {
       setError(undefined);
       setInsertingId(image.id);
 
+      // Tracks which SDK call threw. Upload and insert fail for completely
+      // different reasons — a rejected asset URL versus a design that won't
+      // accept the element — and the user-facing message is the same for both,
+      // so without this the console is the only way to tell them apart.
+      let step: "upload" | "addElement" = "upload";
+
       try {
         const queued = await upload({
           type: "image",
@@ -179,12 +185,19 @@ export const App = () => {
           aiDisclosure: "app_generated",
         });
 
+        step = "addElement";
+
         await addElement({
           type: "image",
           ref: queued.ref,
           altText: { text: prompt, decorative: false },
         });
-      } catch {
+      } catch (caught) {
+        // The SDK's own error carries the actual reason; the message shown to
+        // the user is deliberately generic and tells you nothing.
+        // eslint-disable-next-line no-console
+        console.error(`[insert] ${step}() failed:`, caught);
+
         setError(
           intl.formatMessage({
             defaultMessage: "Couldn't add that image to your design.",
