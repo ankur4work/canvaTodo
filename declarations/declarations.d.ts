@@ -33,3 +33,13 @@ declare module "*.svg?react" {
 }
 
 declare const BACKEND_HOST: string;
+
+/**
+ * HTML imported as a string. esbuild inlines these via `--loader:.html=text`
+ * when bundling the backend, which is how the legal pages ship inside the
+ * single-file server bundle.
+ */
+declare module "*.html" {
+  const content: string;
+  export default content;
+}

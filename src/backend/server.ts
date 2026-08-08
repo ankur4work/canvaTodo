@@ -8,6 +8,7 @@ import { requestLog } from "./request_log";
 import { createAssetRouter } from "./routers/assets";
 import { createBrandKitRouter } from "./routers/brand_kits";
 import { createGenerateRouter } from "./routers/generate";
+import { createLegalRouter } from "./routers/legal";
 
 async function main() {
   const APP_ID = process.env.CANVA_APP_ID;
@@ -58,6 +59,12 @@ async function main() {
    * unguessable, expiring id in the URL instead. See `routers/assets.ts`.
    */
   router.use(createAssetRouter());
+
+  /**
+   * Privacy policy and terms, also ahead of token verification. Canva's
+   * reviewers open these directly in a browser, with no Canva session.
+   */
+  router.use(createLegalRouter());
 
   /**
    * Verifies the Canva user token on every request and populates

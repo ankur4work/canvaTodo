@@ -9,7 +9,7 @@
     "start:preview": "npm run start -- --preview",
     "extract": "formatjs extract \"src/**/*.{ts,tsx}\" --out-file dist/messages_en.json",
     "build": "webpack --config webpack.config.ts --mode production && npm run extract",
-    "build:backend": "esbuild src/backend/server.ts --bundle --platform=node --target=node22 --format=cjs --outfile=dist-server/server.js",
+    "build:backend": "esbuild src/backend/server.ts --bundle --platform=node --target=node22 --format=cjs --loader:.html=text --outfile=dist-server/server.js",
     "lint:types": "tsc",
     "lint": "eslint .",
     "lint:strict": "eslint . --max-warnings=0",
