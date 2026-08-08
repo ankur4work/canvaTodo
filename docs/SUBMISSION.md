@@ -41,11 +41,17 @@ publicly reachable, correct `Content-Type`, no redirects, no IP addresses,
 
 ### Scopes
 
-The app must have **`canva:asset:private:write`** enabled in the Developer
-Portal under **Scopes**. Without it `upload()` fails and generated images cannot
-be inserted — generation itself still succeeds, so the app looks like it works
-right up until the moment a user clicks a result. The Dev Toolkit reports it as
-`missing_scopes`.
+Two scopes must be enabled in the Developer Portal under **Scopes**:
+
+| Scope | Needed by | Symptom if missing |
+|---|---|---|
+| `canva:asset:private:write` | `upload()` | Image generates, then insert fails |
+| `canva:design:content:write` | `addElement()` | Image uploads to the library, then insert fails |
+
+They fail one after the other, so fixing the first just reveals the second.
+Generation succeeds either way, so the app looks healthy right up until a user
+clicks a result. The Dev Toolkit reports both as `missing_scopes` and names the
+exact scope.
 
 Scopes are portal configuration, not code, so they do not travel with the repo
 or the bundle. Re-check them if you ever create a second app entry.
