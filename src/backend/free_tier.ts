@@ -1,9 +1,15 @@
 /**
  * Free-tier quota.
  *
- * Canva's premium app guidelines require that the free experience stays
- * genuinely useful and that free features are never taken away later, so keep
- * this limit generous. It exists to bound abuse, not to push people to upgrade.
+ * **This number can be raised later but must never be lowered.** Canva's
+ * premium app commitments state that free features cannot be retracted once
+ * shipped, so whatever launches here is a floor for the life of the app. That
+ * asymmetry is the reason to start conservatively: going 5 -> 25 is allowed,
+ * going 25 -> 5 is not.
+ *
+ * The other constraint pulls the opposite way — the free experience has to stay
+ * genuinely useful, and reviewers check that. If this ever drops low enough
+ * that the app is unusable without paying, it fails review.
  *
  * This is an in-memory counter: it resets when the process restarts and is not
  * shared between instances. Move it to Redis (or any shared store) before you
@@ -11,7 +17,7 @@
  */
 
 const FREE_GENERATIONS_PER_DAY = Number(
-  process.env.FREE_GENERATIONS_PER_DAY ?? 25,
+  process.env.FREE_GENERATIONS_PER_DAY ?? 5,
 );
 
 const DAY_MS = 24 * 60 * 60 * 1000;
