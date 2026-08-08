@@ -13,81 +13,48 @@ a comparison this app loses and risks rejection for copycat functionality.
 
 ---
 
+## The fields are far shorter than they look
+
+The portal enforces hard character limits. There is no long-description field,
+so everything has to land in two short blocks.
+
+| Field | Limit | Used |
+|---|---|---|
+| App name | 18 | 10 |
+| Short description | 50 | 43 |
+| Description | 200 | 173 |
+
+Canva's written-content rules that shape the wording below:
+
+- No marketing claims — no "best", "powerful", "effortlessly".
+- **No acronyms, initialisms or abbreviations.** This rules out "AI", which is
+  why it appears nowhere in the copy despite being what the app runs on. The
+  images are still labelled as AI-generated in the design itself, via
+  `aiDisclosure`, which is where that disclosure is actually required.
+- **No full stop on a single sentence** unless it contains other punctuation.
+  So the short description has none and the description, being four sentences,
+  has one on each.
+- Short description and description must describe the same purpose. Both use
+  the phrase "brand colours" rather than alternating with "palette".
+
 ## App name
 
 ```
 Brandpaint
 ```
 
-## Tagline
-
-```
-Every image, in your colours.
-```
-
 ## Short description
 
-```
-Generate images that already match your brand. Save your palette and art
-direction once, and every image Brandpaint creates stays inside it — no
-recolouring, no rewriting the same prompt, no "close enough".
-```
-
-## Full description
+No trailing full stop — deliberate, per the rule above.
 
 ```
-Brandpaint generates images that come out on brand the first time.
-
-Most image generators give you whatever the model felt like producing, and
-then you spend your time recolouring, cropping and regenerating until it
-roughly fits your look. Brandpaint works the other way around. You save a
-brand kit — your palette, plus a line of art direction like "warm, editorial,
-lots of negative space" — and every generation is constrained to it.
-
-The result is images you can put straight into a design without adjusting
-them, and a set that looks like it belongs together even when the prompts
-have nothing in common.
-
-HOW IT WORKS
-
-1. Save a brand kit. Add your colours and, optionally, a line describing the
-   look you want. The first colour is treated as primary.
-2. Describe the image you want, in plain language.
-3. Generate. Your palette and art direction are applied automatically.
-4. Click any result to drop it straight into your design.
-
-Your brand kit is saved, so step 1 happens once. Every generation after that
-is two clicks.
-
-WHAT YOU CAN MAKE
-
-Brandpaint is not limited to one look. Photographic scenes, flat illustration,
-3D renders and minimal graphics all work — the brand kit constrains the
-colours and art direction, not the medium. Backgrounds, social posts, hero
-images, spot illustrations and product scenes are all common uses.
-
-FOR TEAMS AND SOLO BRANDS
-
-Save a brand kit per client, per product line, or per campaign, and switch
-between them from the panel. Anyone using the app gets output in the right
-palette without being told what the hex codes are.
-
-MADE WITH AI
-
-Images are generated using AI and are labelled as AI-generated when added to
-your design.
+Generate images in your saved brand colours
 ```
 
-## Feature overview (bullets)
+## Description
 
 ```
-• Save your palette and art direction once, apply it to every generation
-• Multiple brand kits — one per client, product line or campaign
-• Plain-language prompts, no prompt engineering required
-• Photographic, illustration, 3D and minimal styles all supported
-• One click to insert a result into your design
-• Generous free daily allowance
-• Images are labelled as AI-generated automatically
+Save your brand colours and art direction once. Every image you generate stays within them. Click a result to add it to your design. Save a kit for each brand you work with.
 ```
 
 ---
